@@ -12,12 +12,15 @@ body{
 
 main{
     margin: 10px 20px;
-    /* background-color: yellow; */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .container{
     width: 250px;
-    /* max-height: 300px; */
+    height: 400px;
     margin: 5px;
     background-color: rgb(217, 220, 223);
     border: black 1px solid;
@@ -31,7 +34,12 @@ img{
     width: 246px;
 }
 
-p{
+.text{
     font-size: 12px;
     text-align: justify;
+}
+
+.title{
+    font-size: 15px;
+    margin: 5px 0px;
 }
