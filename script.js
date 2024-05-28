@@ -6,11 +6,21 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     let apiCount = `count=${quantity}`;
     let webPath = `https://api.nasa.gov/planetary/apod?${apiCount}&api_key=${apiKey}`;
 
-    // let apiObj = await getObjApi(webPath);
-    // console.log(apiObj);
+    let objApi = await getObjApi(webPath);
+
+    if(objApi.ok){
+        console.log(await objApi.json());
+    }
+    else{
+        throw 'Error!\nDates are not recieved!'
+    }
 })
 
 const getObjApi = async (webPath) => {
 
-    return (await fetch(webPath)).json();
+    // console.log('function getObkApi');
+    // let objApi = await fetch(webPath);
+    // console.log(objApi.status, objApi.ok, objApi.statusText, objApi.text())
+
+    return (await fetch(webPath));
 }
