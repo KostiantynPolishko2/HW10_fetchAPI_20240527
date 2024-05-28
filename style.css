@@ -26,6 +26,15 @@ main{
     border: black 1px solid;
 }
 
+#error404{
+    width: 300px;
+    height: 250px;
+    background-image: url('./img/error404.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 div.container > div{
     margin: 2px;
 }
@@ -42,4 +51,14 @@ img{
 .title{
     font-size: 15px;
     margin: 5px 0px;
+}
+
+div#error404 > p {
+    width: 200px;
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    margin: 5px auto;
+    color: rgb(80, 77, 77);
+    background-color: cornflowerblue;
 }

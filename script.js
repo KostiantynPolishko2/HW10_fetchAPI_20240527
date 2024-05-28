@@ -48,7 +48,9 @@ const layoutCardPlanet = (dictDiv, dictP, tags) => {
 }
 
 const addTxtNode = (element, txt) => {
-    element.insertBefore(document.createTextNode(txt), element.firstElementChild);
+    if(txt !== undefined){
+        element.insertBefore(document.createTextNode(txt), element.firstElementChild);
+    }
 }
 
 const setImgAttr = (element, src, alt = 'logo') => {
@@ -83,6 +85,16 @@ const createCardPlanet = (element) => {
     }
 }
 
+const createCard404 = (element, txt) => {
+    let div404 = createTag('div', 'container');
+    div404.id = 'error404';
+    let p404 = createTag('p');
+
+    addTxtNode(p404, 'Error!\nDates are not loaded!');
+
+    element.appendChild(div404).appendChild(p404);
+}
+
 const fillApiObjs = async (apiObjs) => {
     if(apiObjs.ok){
         let planets = await apiObjs.json();
@@ -93,6 +105,7 @@ const fillApiObjs = async (apiObjs) => {
         }
     }
     else{
-        throw 'Error!\nDates are not recieved!'
+        let txt = 'Error!\nDates are not loaded!';
+        createCard404(document.getElementsByTagName('main')[0], txt);
     }
 }
