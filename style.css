@@ -1,0 +1,37 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+main{
+    margin: 10px 20px;
+    /* background-color: yellow; */
+}
+
+.container{
+    width: 250px;
+    /* max-height: 300px; */
+    margin: 5px;
+    background-color: rgb(217, 220, 223);
+    border: black 1px solid;
+}
+
+div.container > div{
+    margin: 2px;
+}
+
+img{
+    width: 246px;
+}
+
+p{
+    font-size: 12px;
+    text-align: justify;
+}

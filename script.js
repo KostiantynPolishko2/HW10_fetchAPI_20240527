@@ -6,8 +6,8 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     let apiCount = `count=${quantity}`;
     let webPath = `https://api.nasa.gov/planetary/apod?${apiCount}&api_key=${apiKey}`;
 
-    let apiObj = await getObjApi(webPath);
-    console.log(apiObj);
+    // let apiObj = await getObjApi(webPath);
+    // console.log(apiObj);
 })
 
 const getObjApi = async (webPath) => {
