@@ -8,10 +8,7 @@ document.addEventListener('DOMContentLoaded', async (e) => {
     let apiCount = `count=${quantity}`;
     let webPath = `https://api.nasa.gov/planetary/apod?${apiCount}&api_key=${apiKey}`;
 
-    // testApiObjs(await getApiObj(webPath));
-    const cardPlanet = createCardPlanet(document.getElementsByTagName('main')[0]);
-    // cardPlanet();
-    cardPlanet();
+    fillApiObjs(await getApiObj(webPath));
 })
 
 const getApiObj = async (webPath) => {
@@ -37,20 +34,6 @@ const createDictTags = (tagName, classNames) => {
     return dictElements;
 }
 
-const createCardPlanet = (element) => {
-
-    const dictDiv = createDictTags('div', ['container', 'text', 'none']);
-    const dictP = createDictTags('p', ['copyright', 'date', 'title', 'explanation']);
-
-    let tags = {imgEmpty: createTag('img'), hrEmpty: createTag('hr')};
-
-    layoutCardPlanet(dictDiv, dictP, tags);
-
-    return (apiObject) => {
-        element.appendChild(dictDiv.get('container'));
-    }
-}
-
 const layoutCardPlanet = (dictDiv, dictP, tags) => {
     dictDiv.get('container').appendChild(dictDiv.get('none')).appendChild(tags.imgEmpty);
     dictDiv.get('container').appendChild(dictDiv.get('text'));
@@ -64,14 +47,52 @@ const layoutCardPlanet = (dictDiv, dictP, tags) => {
     dictDiv.get('text').appendChild(dictP.get('explanation'));
 }
 
-// const testApiObjs = async (apiObjs) => {
-//     if(apiObjs.ok){
-//         let planets = await apiObjs.json();
-//         console.log(planets[0]['date']);
-//         console.log(Object.keys(planets[0]));
-//         console.log(planets[0]);
-//     }
-//     else{
-//         throw 'Error!\nDates are not recieved!'
-//     }
-// }
+const addTxtNode = (element, txt) => {
+    element.insertBefore(document.createTextNode(txt), element.firstElementChild);
+}
+
+const setImgAttr = (element, src, alt = 'logo') => {
+    element.setAttribute('src', src);
+    element.setAttribute('alt', alt);
+}
+
+const getIdName = (indentifier) => {
+
+    return indentifier.replaceAll(' ', '_');
+}
+
+const createCardPlanet = (element) => {
+    const classNames = ['copyright', 'date', 'title', 'explanation'];
+
+    return (apiObject) => {
+
+        const dictDiv = createDictTags('div', ['container', 'text', 'none']);
+        const dictP = createDictTags('p', classNames);
+    
+        let tags = {imgEmpty: createTag('img'), hrEmpty: createTag('hr')};
+        layoutCardPlanet(dictDiv, dictP, tags);       
+
+        for(let className of classNames){
+            addTxtNode(dictP.get(className), apiObject[className]);
+        }
+
+        setImgAttr(tags.imgEmpty, apiObject['url'], apiObject['title']);
+        dictDiv.get('container').id = getIdName(apiObject['title']);
+
+        element.appendChild(dictDiv.get('container'));
+    }
+}
+
+const fillApiObjs = async (apiObjs) => {
+    if(apiObjs.ok){
+        let planets = await apiObjs.json();
+        const cardPlanet = createCardPlanet(document.getElementsByTagName('main')[0]);
+
+        for(let planet of planets){
+            cardPlanet(planet);
+        }
+    }
+    else{
+        throw 'Error!\nDates are not recieved!'
+    }
+}
